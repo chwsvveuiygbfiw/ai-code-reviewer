@@ -1,0 +1,61 @@
+# AI Code Reviewer Configuration
+
+rules:
+  # Security rules (critical - always enabled)
+  security:
+    - sql_injection: true
+    - xss: true
+    - command_injection: true
+    - hardcoded_secrets: true
+    - path_traversal: true
+    - insecure_deserialization: true
+
+  # Performance rules
+  performance:
+    - n_plus_one_query: true
+    - unused_imports: true
+    - string_concat_in_loop: true
+    - large_object_copy: true
+    - missing_index: true
+
+  # Error handling
+  errors:
+    - bare_except: true
+    - swallowed_exception: true
+    - resource_leak: true
+    - null_pointer_risk: true
+
+  # Style (optional)
+  style:
+    - function_too_long:
+        enabled: true
+        max_lines: 50
+    - missing_docstring: false
+    - naming_convention: true
+    - comment_quality: false
+
+# Review behavior
+review:
+  auto_approve_threshold: 0    # 0 = never auto-approve
+  max_comments_per_review: 20
+  post_summary: true
+  request_changes_on_critical: true
+
+# LLM configuration
+llm:
+  provider: deepseek            # deepseek | claude | openai
+  model: deepseek-v4-pro
+  temperature: 0.1
+  max_tokens: 2048
+
+# Language-specific analyzers
+languages:
+  python:
+    enabled: true
+    max_line_length: 120
+  javascript:
+    enabled: false
+  typescript:
+    enabled: false
+  go:
+    enabled: false
